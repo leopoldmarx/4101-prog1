@@ -3,6 +3,7 @@
 import sys
 import io
 from Tokens import *
+import string
 
 class Scanner:
     def __init__(self, i):
@@ -37,8 +38,23 @@ class Scanner:
             # input stream is easier.
             ch = self.read()
 
-            # TODO: Skip white space and comments
+            # TODONE: Skip white space and comments
+
             #simple whileloop to remove whitespace. \r is whitespace and \n determines the end of the line
+
+            # whitespace
+            if ch in string.whitespace:
+                ch = self.read()
+                while ch in string.whitespace:
+                    ch = self.read()
+
+            #comments
+            if ch == ';':
+                ch= self.read()
+                while ch != '\n':
+                    ch = self.read()
+            if ch == '\n':
+                ch = self.read()
 
             # Return None on EOF
             if ch == "":
