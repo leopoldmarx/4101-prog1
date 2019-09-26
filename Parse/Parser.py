@@ -41,7 +41,7 @@ class Parser:
         self.scanner = s
 
     def parseExp(self):
-        return parseRest(tok=self.scanner.getNextToken())
+        return self.parseExp(tok=self.scanner.getNextToken())
 
     def parseExp(self, tok=None):
         # TODO: write code for parsing an exp
