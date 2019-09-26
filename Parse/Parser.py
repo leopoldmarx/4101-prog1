@@ -39,6 +39,7 @@ from Tokens import TokenType
 class Parser:
     def __init__(self, s):
         self.scanner = s
+        print('testing commit')
 
     def parseExp(self):
         return self.parseExp(tok=self.scanner.getNextToken())
