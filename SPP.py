@@ -15,8 +15,8 @@ if __name__ == "__main__":
     
     # If command line option -d is provided, debug the scanner.
     if len(sys.argv) == 2 and sys.argv[1] == "-d":
-        #sys.stdout.write("Scheme 4101> ")
-        #sys.stdout.flush()
+        sys.stdout.write("Scheme 4101> ")
+        sys.stdout.flush()
         tok = scanner.getNextToken()
         while tok != None:
             tt = tok.getType()
@@ -31,8 +31,8 @@ if __name__ == "__main__":
             else:
                 sys.stdout.write("\n")
 
-            # sys.stdout.write("Scheme 4101> ")
-            # sys.stdout.flush()
+            sys.stdout.write("Scheme 4101> ")
+            sys.stdout.flush()
             tok = scanner.getNextToken()
     else:
         # Create parser
