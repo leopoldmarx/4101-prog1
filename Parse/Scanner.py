@@ -74,6 +74,10 @@ class Scanner:
             # String constants
             elif ch == '"':
                 self.buf = []
+                ch = self.read()
+                while ch != '"':
+                    self.buf.append(ch)
+                    ch = self.read()
                 # TODO: scan a string into the buffer variable buf
     
                 return StrToken("".join(self.buf))
