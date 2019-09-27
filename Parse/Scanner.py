@@ -101,10 +101,9 @@ class Scanner:
             # Integer constants
             elif self.isDigit(ch):
                 i = ord(ch) - ord('0')
-                # TODO: scan the number and convert it to an integer
-
-                #use peek to look ahead
-
+                # TODONE: scan the number and convert it to an integer
+                while self.isDigit(self.peek()):
+                    i = i*10 + ord(self.read()) - ord('0')
                 # make sure that the character following the integer
                 # is not removed from the input stream
                 return IntToken(i)
