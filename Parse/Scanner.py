@@ -30,6 +30,22 @@ class Scanner:
     def isDigit(ch):
         return ch >= '0' and ch <= '9'
 
+    @staticmethod
+    def isInitial(ch):
+        return (ch >= 'a' and ch <= 'z') or ch == '!' or ch == '$' or ch == '%' or ch == '&' or ch == '*' or ch == '/' or ch == ':' or ch == '<' or ch == '=' or ch == '>' or ch == '?' or ch == '^' or ch == '_' or ch == '~'
+
+    @staticmethod
+    def isPeculiar(ch):
+        return ch=='+' or ch=='-'
+
+    @staticmethod
+    def isSubsequent(ch):
+        return Scanner.isInitial(ch) or Scanner.isDigit(ch) or Scanner.isSpecialSubsequent(ch)
+
+    @staticmethod
+    def isSpecialSubsequent(ch):
+        return ch == '+' or ch == '-' or ch == '.' or ch == '@'
+
     def getNextToken(self):
         try:
             # It would be more efficient if we'd maintain our own
@@ -53,8 +69,8 @@ class Scanner:
                 ch= self.read()
                 while ch != '\n':
                     ch = self.read()
-            if ch == '\n':
-                ch = self.read()
+            # if ch == '\n':
+            #     ch = self.read()
 
             # Return None on EOF
             if ch == "":
@@ -109,16 +125,23 @@ class Scanner:
                 return IntToken(i)
     
             # Identifiers
-            elif ch >= 'A' and ch <= 'Z':
+            elif self.isInitial(ch):
                 # or ch is some other vaid first character
                 # for an identifier
                 self.buf = []
                 # TODO: scan an identifier into the buffer variable buf
+                self.buf.append(ch)
 
+                while self.isSubsequent(self.peek()):
+                    self.buf.append(self.read())
 
                 # make sure that the character following the identifier
                 # is not removed from the input stream
                 return IdentToken("".join(self.buf))
+
+            elif self.isPeculiar(ch):
+                return IdentToken(ch)
+
 
             # Illegal character
             else:
