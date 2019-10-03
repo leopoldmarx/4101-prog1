@@ -43,18 +43,13 @@ class Parser:
         self.scanner = s
 
     def parseExp(self):
-        # TODO: write code for parsing an exp
 
         tok = self.scanner.getNextToken()
         if tok is None:
-            #TODO handle none
-            #return None?
-            pass
+            return None #?
 
         elif tok is TokenType.LPAREN:
-            #TODO ( rest
-            #return self.parseRest()?
-            pass
+            return self.parseRest()
 
         elif tok is TokenType.TRUE:
             return Cons(BoolLit.getInstance(True), self.parseExp())
@@ -82,13 +77,10 @@ class Parser:
 
         tok = self.scanner.getNextToken()
         if tok is None:
-            #TODO handle none
-            #return None?
-            pass
+            return None #?
 
         elif tok is TokenType.RPAREN:
-            #TODO )
-            pass
+            return Nil.getInstance()
 
         else:
             t = self.parseExp()
@@ -109,8 +101,7 @@ class Parser:
             pass
 
         elif tok is TokenType.RPAREN:
-            #TODO )
-            pass
+            return Nil.getInstance()
 
         else:
             t = self.parseExp()
