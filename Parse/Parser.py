@@ -35,23 +35,88 @@
 
 import sys
 from Tokens import TokenType
+from Tree import *
+
 
 class Parser:
     def __init__(self, s):
         self.scanner = s
 
     def parseExp(self):
-        return self.parseExp(tok=self.scanner.getNextToken())
-
-    def parseExp(self, tok=None):
         # TODO: write code for parsing an exp
+
+        tok = self.scanner.getNextToken()
+        if tok is None:
+            #TODO handle none
+            #return None?
+            pass
+
+        elif tok is TokenType.LPAREN:
+            #TODO ( rest
+            #return self.parseRest()?
+            pass
+
+        elif tok is TokenType.TRUE:
+            return Cons(BoolLit.getInstance(True), self.parseExp())
+
+        elif tok is TokenType.FALSE:
+            return Cons(BoolLit.getInstance(False), self.parseExp())
+
+        elif tok is TokenType.QUOTE:
+            #TODO ' exp
+            pass
+
+        elif tok is TokenType.INT:
+            return Cons(IntLit(tok.getIntVal()), self.parseExp())
+
+        elif tok is TokenType.STR:
+            return Cons(StrLit(tok.getStrVal()), self.parseExp())
+
+        elif tok is TokenType.IDENT:
+            return Cons(Ident(tok.getName()), self.parseExp())
+
         return None
 
     def parseRest(self):
         # TODO: write code for parsing a rest
+
+        tok = self.scanner.getNextToken()
+        if tok is None:
+            #TODO handle none
+            #return None?
+            pass
+
+        elif tok is TokenType.RPAREN:
+            #TODO )
+            pass
+
+        else:
+            t = self.parseExp()
+            return Cons(t, self.parseCont())
+
         return None
 
-    # TODO: Add any additional methods you might need
+    def parseCont(self):
+
+        tok = self.scanner.getNextToken()
+        if tok is None:
+            # TODO handle none
+            # return None?
+            pass
+
+        elif tok is TokenType.DOT:
+            #TODO .exp)
+            pass
+
+        elif tok is TokenType.RPAREN:
+            #TODO )
+            pass
+
+        else:
+            t = self.parseExp()
+            return Cons(t, self.parseCont())
+
+        return None
 
     def __error(self, msg):
         sys.stderr.write("Parse error: " + msg + "\n")
