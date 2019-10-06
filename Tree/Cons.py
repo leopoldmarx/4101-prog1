@@ -19,6 +19,25 @@ class Cons(Node):
     # parsing up to the interpreter.
     def parseList(self):
         # TODO: implement this function and any helper functions
+        if isinstance(self.car, str):
+            if self.car.lower()=="quote":
+                pass
+            elif self.car.lower()=="lambda":
+                pass
+            elif self.car.lower()=="begin":
+                pass
+            elif self.car.lower()=="if":
+                pass
+            elif self.car.lower()=="let":
+                pass
+            elif self.car.lower()=="cond":
+                pass
+            elif self.car.lower()=="define":
+                pass
+            elif self.car.lower()=="set":
+                pass
+            elif self.car.lower()=="regular":
+                pass
         # you might need
         self.form = None
 
