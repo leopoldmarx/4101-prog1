@@ -53,7 +53,6 @@ class Scanner:
             # buffer, but reading individual characters from the
             # input stream is easier.
             ch = self.read()
-
             # TODONE: Skip white space and comments
 
             #simple whileloop to remove whitespace. \r is whitespace and \n determines the end of the line
@@ -61,7 +60,7 @@ class Scanner:
             # whitespace
             if ch in string.whitespace:
                 ch = self.read()
-                while ch in string.whitespace:
+                while ch is " " or ch is "\n" or ch is "\r":
                     ch = self.read()
 
             #comments
@@ -69,8 +68,9 @@ class Scanner:
                 ch= self.read()
                 while ch != '\n':
                     ch = self.read()
-            # if ch == '\n':
-            #     ch = self.read()
+            if ch == '\n':
+                ch = self.read()
+
 
             # Return None on EOF
             if ch == "":

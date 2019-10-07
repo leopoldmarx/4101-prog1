@@ -34,6 +34,8 @@
 # or an RPAREN) and attempts to continue parsing with the next token.
 
 import sys
+
+from Special import Quote
 from Tokens import TokenType
 from Tree import *
 
@@ -42,70 +44,63 @@ class Parser:
     def __init__(self, s):
         self.scanner = s
 
-    def parseExp(self):
-
-        tok = self.scanner.getNextToken()
+    def parseExp(self, tok=None):
         if tok is None:
-            return None #?
+            tok = self.scanner.getNextToken()
+        if tok is None:
+            self.__error("EOF not expected: exp")
 
-        elif tok is TokenType.LPAREN:
+        elif tok.getType() is TokenType.LPAREN:
             return self.parseRest()
 
-        elif tok is TokenType.TRUE:
-            return Cons(BoolLit.getInstance(True), self.parseExp())
+        elif tok.getType() is TokenType.TRUE:
+            return BoolLit.getInstance(True)
 
-        elif tok is TokenType.FALSE:
-            return Cons(BoolLit.getInstance(False), self.parseExp())
+        elif tok.getType() is TokenType.FALSE:
+            return BoolLit.getInstance(False)
 
-        elif tok is TokenType.QUOTE:
-            #TODO ' exp
-            pass
+        elif tok.getType() is TokenType.QUOTE:
+            return Cons(StrLit("'"), self.parseExp())
 
-        elif tok is TokenType.INT:
-            return Cons(IntLit(tok.getIntVal()), self.parseExp())
+        elif tok.getType() is TokenType.INT:
+            return IntLit(tok.getIntVal())
 
-        elif tok is TokenType.STR:
-            return Cons(StrLit(tok.getStrVal()), self.parseExp())
+        elif tok.getType() is TokenType.STR:
+            return StrLit(tok.getStrVal())
 
-        elif tok is TokenType.IDENT:
-            return Cons(Ident(tok.getName()), self.parseExp())
+        elif tok.getType() is TokenType.IDENT:
+            return Ident(tok.getName())
 
         return None
 
     def parseRest(self):
         # TODO: write code for parsing a rest
-
         tok = self.scanner.getNextToken()
         if tok is None:
-            return None #?
+            self.__error("EOF not expected: rest")
 
-        elif tok is TokenType.RPAREN:
+        elif tok.getType() is TokenType.RPAREN:
             return Nil.getInstance()
 
         else:
-            t = self.parseExp()
-            return Cons(t, self.parseCont())
+            return Cons(self.parseExp(tok=tok),self.parseCont())
 
         return None
 
     def parseCont(self):
-
         tok = self.scanner.getNextToken()
         if tok is None:
-            # TODO handle none
-            # return None?
-            pass
+            self.__error("EOF not expected: cont")
 
-        elif tok is TokenType.DOT:
+        elif tok.getType() is TokenType.DOT:
             #TODO .exp)
             pass
 
-        elif tok is TokenType.RPAREN:
+        elif tok.getType() is TokenType.RPAREN:
             return Nil.getInstance()
 
         else:
-            t = self.parseExp()
-            return Cons(t, self.parseCont())
+            return Cons(self.parseExp(tok=tok),self.parseCont())
 
         return None
 
