@@ -2,6 +2,7 @@
 
 import sys
 from abc import ABC, abstractmethod
+from Tree import *
 
 class Node(ABC):
     # The argument of print(int) is the number of characters to indent.
@@ -30,7 +31,7 @@ class Node(ABC):
     # evaluating them, we need some helper functions that test
     # the type of a node and that extract some information.
 
-    # TODO: implemented these in the appropriate subclasses to return true.
+    # TODOne: implemented these in the appropriate subclasses to return true.
     def isBool(self):           # BoolLit
         return False
     def isNumber(self):         # IntLit
@@ -44,17 +45,17 @@ class Node(ABC):
     def isPair(self):           # Cons
         return False
 
-    # TODO: Report an error in these default methods and implement them
+    # TODOne: Report an error in these default methods and implement them
     # in class Cons.  After setCar, a Cons cell needs to be `parsed' again
     # using parseList.
     def getCar(self):
-        return None
+        raise Exception("getCar only works for Cons.")
 
     def getCdr(self):
-        return None
+        raise Exception("getCdr only works for Cons.")
 
     def setCar(self, a):
-        pass
+        raise Exception("setCar only works for Cons.")
 
     def setCdr(self, d):
-        pass
+        raise Exception("setCdr only works for Cons.")

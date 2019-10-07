@@ -1,5 +1,5 @@
 # Cons -- Parse tree node class for representing a Cons node
-
+from Special import *
 from Tree import Node
 from Tree import Ident
 
@@ -19,30 +19,67 @@ class Cons(Node):
     # parsing up to the interpreter.
     def parseList(self):
         # TODO: implement this function and any helper functions
-        if isinstance(self.car, str):
-            if self.car.lower()=="quote":
-                pass
-            elif self.car.lower()=="lambda":
-                pass
-            elif self.car.lower()=="begin":
-                pass
-            elif self.car.lower()=="if":
-                pass
-            elif self.car.lower()=="let":
-                pass
-            elif self.car.lower()=="cond":
-                pass
-            elif self.car.lower()=="define":
-                pass
-            elif self.car.lower()=="set":
-                pass
-            elif self.car.lower()=="regular":
-                pass
+        if self.car.isSymbol():
+
+            name = self.car.name.lower()
+            if name=="quote" or "'":
+                self.car = Quote()
+                print(name)
+
+            elif name=="lambda":
+                self.car = Lambda()
+
+            elif name=="begin":
+                self.car = Begin()
+
+            elif name=="if":
+                self.car = If()
+
+            elif name=="let":
+                self.car = Let()
+
+            elif name=="cond":
+                self.car = Cond()
+
+            elif name=="define":
+                self.car = Define()
+
+            elif name=="set":
+                self.car = Set()
+
+            elif name=="regular":
+                self.car = Regular()
+
         # you might need
         self.form = None
 
     def print(self, n, p=False):
-        self.form.print(self, n, p)
+        #self.form.print(self, n, p)
+        print(self.car)
+        if self.car.isPair():
+            self.car.print(n+1)
+        else:
+            print(self.car)
+        if self.cdr.isPair():
+            self.cdr.print(n+1)
+        else:
+            print(self.cdr)
+
+    def isPair(self):
+        return True
+
+    def getCar(self):
+        return self.car
+
+    def getCdr(self):
+        return self.cdr
+
+    def setCar(self, a):
+        self.car = a
+        self.parseList()
+
+    def setCdr(self, d):
+        self.cdr = d
 
 if __name__ == "__main__":
     c = Cons(Ident("Hello"), Ident("World"))
