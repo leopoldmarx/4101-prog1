@@ -2,6 +2,7 @@
 
 import sys
 from Parse import *
+from Tree import *
 from Tokens import TokenType
 
 if __name__ == "__main__":
@@ -40,6 +41,24 @@ if __name__ == "__main__":
 
         # Parse and pretty-print each input expression
         root = parser.parseExp()
+
+        def rec(node,n):
+            if isinstance(node,Cons):
+                sys.stdout.write(n*'|' + 'cons ')
+                print(type(node.form))
+                rec(node.car,n+1)
+                rec(node.cdr,n+1)
+            elif node is None:
+                print("None")
+            else:
+                if node.isSymbol():
+                    a=node.name
+                else:
+                    a='nil'
+                sys.stdout.write(n*'|' + a)
+                print(type(node))
+
+        #rec(root,0)
         while root != None:
             root.print(0)
             root = parser.parseExp()
