@@ -1,7 +1,8 @@
 # Cons -- Parse tree node class for representing a Cons node
+import sys
+
 from Special import *
-from Tree import Node
-from Tree import Ident
+from Tree import *
 
 class Cons(Node):
     def __init__(self, a, d):
@@ -23,47 +24,52 @@ class Cons(Node):
 
             name = self.car.name.lower()
             if name=="quote" or "'":
+                self.form = 'quote'
                 self.car = Quote()
-                print(name)
 
             elif name=="lambda":
+                self.form = name
                 self.car = Lambda()
 
             elif name=="begin":
+                self.form = name
                 self.car = Begin()
 
             elif name=="if":
+                self.form = name
                 self.car = If()
 
             elif name=="let":
+                self.form = name
                 self.car = Let()
 
             elif name=="cond":
+                self.form = name
                 self.car = Cond()
 
             elif name=="define":
+                self.form = name
                 self.car = Define()
 
-            elif name=="set":
+            elif name=="set" or name=="set!":
+                self.form = name
                 self.car = Set()
 
-            elif name=="regular":
-                self.car = Regular()
+            else:
+                self.form = None
 
         # you might need
         self.form = None
 
     def print(self, n, p=False):
-        #self.form.print(self, n, p)
-        print(self.car)
-        if self.car.isPair():
-            self.car.print(n+1)
-        else:
-            print(self.car)
-        if self.cdr.isPair():
-            self.cdr.print(n+1)
-        else:
-            print(self.cdr)
+        # TODO print stuff (this is probably wrong)
+        if self.form is None:
+            #regular print
+            self.car.print(n)
+            self.cdr.print(n)
+        elif self.form is 'quote':
+            self.form.print(self.cdr.car,n)
+            self.form.print(self, n, p)
 
     def isPair(self):
         return True
