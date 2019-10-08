@@ -60,7 +60,7 @@ class Parser:
             return BoolLit.getInstance(False)
 
         elif tok.getType() is TokenType.QUOTE:
-            return Cons(StrLit("'"), self.parseExp())
+            return Cons(Ident("'"), Cons(self.parseExp(),Nil.getInstance()))
 
         elif tok.getType() is TokenType.INT:
             return IntLit(tok.getIntVal())
@@ -74,7 +74,7 @@ class Parser:
         return None
 
     def parseRest(self):
-        # TODO: write code for parsing a rest
+        # TODOne: write code for parsing a rest
         tok = self.scanner.getNextToken()
         if tok is None:
             self.__error("EOF not expected: rest")
@@ -93,8 +93,7 @@ class Parser:
             self.__error("EOF not expected: cont")
 
         elif tok.getType() is TokenType.DOT:
-            #TODO .exp)
-            pass
+            return self.parseExp()
 
         elif tok.getType() is TokenType.RPAREN:
             return Nil.getInstance()
