@@ -48,7 +48,7 @@ class Parser:
         if tok is None:
             tok = self.scanner.getNextToken()
         if tok is None:
-            self.__error("EOF not expected: exp")
+            return None
 
         elif tok.getType() is TokenType.LPAREN:
             return self.parseRest()
@@ -71,7 +71,7 @@ class Parser:
         elif tok.getType() is TokenType.IDENT:
             return Ident(tok.getName())
 
-        return None
+        #return None
 
     def parseRest(self):
         # TODOne: write code for parsing a rest
