@@ -1,4 +1,5 @@
 # Quote -- Parse tree node strategy for printing the special form quote
+import sys
 
 from Special import Special
 
@@ -8,5 +9,7 @@ class Quote(Special):
         pass
 
     def print(self, t, n, p):
-        # TODO: Implement this function.
+        #TODO
+        sys.stdout.write("'")
+        t.print(n)
         pass
