@@ -6,6 +6,7 @@ from Tree import *
 
 class Cons(Node):
     def __init__(self, a, d):
+        self.form = None
         self.car = a
         self.cdr = d
         self.parseList()
@@ -23,53 +24,37 @@ class Cons(Node):
         if self.car.isSymbol():
 
             name = self.car.name.lower()
-            if name=="quote" or "'":
-                self.form = 'quote'
-                self.car = Quote()
+            if name=="quote" or name=="'":
+                self.form = Quote()
 
             elif name=="lambda":
-                self.form = name
-                self.car = Lambda()
+                self.form = Lambda()
 
             elif name=="begin":
-                self.form = name
-                self.car = Begin()
+                self.form = Begin()
 
             elif name=="if":
-                self.form = name
-                self.car = If()
+                self.form = If()
 
             elif name=="let":
-                self.form = name
-                self.car = Let()
+                self.form = Let()
 
             elif name=="cond":
-                self.form = name
-                self.car = Cond()
+                self.form = Cond()
 
             elif name=="define":
-                self.form = name
-                self.car = Define()
+                self.form = Define()
 
             elif name=="set" or name=="set!":
-                self.form = name
-                self.car = Set()
+                self.form = Set()
 
             else:
-                self.form = None
-
-        # you might need
-        self.form = None
+                self.form = Regular()
+        else:
+            self.form = Regular()
 
     def print(self, n, p=False):
-        # TODO print stuff (this is probably wrong)
-        if self.form is None:
-            #regular print
-            self.car.print(n)
-            self.cdr.print(n)
-        elif self.form is 'quote':
-            self.form.print(self.cdr.car,n)
-            self.form.print(self, n, p)
+        self.form.print(self, n, p)
 
     def isPair(self):
         return True
