@@ -8,5 +8,5 @@ class Regular(Special):
         pass
 
     def print(self, t, n, p):
-        # TODO: Implement this function.
-        pass
+        t.car.print(n,p)
+        t.cdr.print(n,p)

@@ -9,7 +9,7 @@ class Quote(Special):
         pass
 
     def print(self, t, n, p):
-        #TODO
         sys.stdout.write("'")
-        t.print(n)
+        #t..print(n, p)
+        t.cdr.car.print(n)
         pass
