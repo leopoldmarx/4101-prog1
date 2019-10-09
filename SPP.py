@@ -44,8 +44,6 @@ if __name__ == "__main__":
 
         def rec(node,n):
             if isinstance(node,Cons):
-                sys.stdout.write(n*'|' + 'cons ')
-                print(type(node.form))
                 rec(node.car,n+1)
                 rec(node.cdr,n+1)
             elif node is None:
@@ -55,8 +53,7 @@ if __name__ == "__main__":
                     a=node.name
                 else:
                     a='nil'
-                sys.stdout.write(n*'|' + a)
-                print(type(node))
+                node.print(n)
 
         #rec(root,0)
         while root != None:
