@@ -36,9 +36,9 @@ class BoolLit(Node):
         for _ in range(n):
             sys.stdout.write(' ')
         if self.boolVal:
-            sys.stdout.write("#t\n")
+            sys.stdout.write("#t ")
         else:
-            sys.stdout.write("#f\n")
+            sys.stdout.write("#f ")
 
     def isBool(self):
         return True

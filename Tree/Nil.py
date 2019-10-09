@@ -23,9 +23,9 @@ class Nil(Node):
         for _ in range(n):
             sys.stdout.write(' ')
         if p:
-            sys.stdout.write(")\n")
+            sys.stdout.write(") ")
         else:
-            sys.stdout.write("()\n")
+            sys.stdout.write("()")
 
     def isNull(self):
         return True
