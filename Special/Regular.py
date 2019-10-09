@@ -1,4 +1,5 @@
 # Regular -- Parse tree node strategy for printing regular lists
+import sys
 
 from Special import Special
 
@@ -8,5 +9,9 @@ class Regular(Special):
         pass
 
     def print(self, t, n, p):
-        t.car.print(n,p)
-        t.cdr.print(n,p)
+        if p:
+            t.car.print(n, p=False)
+        else:
+            sys.stdout.write('(')
+            t.car.print(n,p=True)
+        t.cdr.print(n, p=True)
