@@ -14,4 +14,3 @@ class Regular(Special):
         else:
             sys.stdout.write('(')
             t.car.print(n,p=True)
-        t.cdr.print(n, p=True)

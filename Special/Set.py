@@ -1,7 +1,7 @@
 # Set -- Parse tree node strategy for printing the special form set!
 
 from Special import Special
-
+import sys
 class Set(Special):
     # TODO: Add fields and modify the constructor as needed.
     def __init__(self):
@@ -9,5 +9,11 @@ class Set(Special):
     
     def print(self, t, n, p):
         # TODO: Implement this function.
+        if p:
+            t.car.print(n, p=False)
+        else:
+            sys.stdout.write('(')
+            t.car.print(n, p=True)
+        t.cdr.print(n, p=True)
         pass
 
