@@ -9,11 +9,7 @@ class Set(Special):
     
     def print(self, t, n, p):
         # TODO: Implement this function.
-        if p:
-            t.car.print(n, p=False)
-        else:
-            sys.stdout.write('(')
-            t.car.print(n, p=True)
-        t.cdr.print(n, p=True)
-        pass
+        sys.stdout.write(t.car.name + " ")
+        t.cdr.car.print(n, p=not t.cdr.car.isPair())
+        t.cdr.cdr.print(-abs(n) - 4, p=True)
 

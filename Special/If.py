@@ -9,9 +9,6 @@ class If(Special):
 
     def print(self, t, n, p):
         # TODO: Implement this function.
-        sys.stdout.write("(")
-        t.car.print(n)
-        t.cdr.print(n, p=False)
-        print("\r")
-        t.cdr.cdr.print(n=4, p=False)
-        pass
+        sys.stdout.write("if ")
+        t.cdr.car.print(n, p=not t.cdr.car.isPair())
+        t.cdr.cdr.print(-abs(n)-4, p=True)

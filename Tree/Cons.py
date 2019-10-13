@@ -54,6 +54,11 @@ class Cons(Node):
             self.form = Regular()
 
     def print(self, n, p=False):
+        if n<0:
+            sys.stdout.write('\n' + " "*-n)
+        #car
+        if not p and not isinstance(self.form, Quote):
+            sys.stdout.write('(')
         self.form.print(self, n, p)
 
     def isPair(self):

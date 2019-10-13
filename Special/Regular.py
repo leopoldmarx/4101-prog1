@@ -9,8 +9,17 @@ class Regular(Special):
         pass
 
     def print(self, t, n, p):
-        if p:
-            t.car.print(n, p=False)
-        else:
+        if t.car.isNull():
             sys.stdout.write('(')
-            t.car.print(n,p=True)
+        t.car.print(abs(n),p=not t.car.isPair())
+
+        #cdr
+        if t.cdr.isPair():
+            sys.stdout.write(' ')
+            t.cdr.print(n,p=True)
+        elif t.cdr.isNull():
+            t.cdr.print(n, p=True)
+        else:
+            sys.stdout.write(' . ')
+            t.cdr.print(n, p=True)
+            sys.stdout.write(')')

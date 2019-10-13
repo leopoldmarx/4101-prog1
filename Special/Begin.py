@@ -9,8 +9,5 @@ class Begin(Special):
 
     def print(self, t, n, p):
         # TODO: Implement this function.
-        sys.stdout.write("(")
-        t.car.print(n)
-        print("\r")
-        t.cdr.print(n=4,p=False)
-        pass
+        sys.stdout.write("begin ")
+        t.cdr.print(-abs(n) - 4, p=True)
